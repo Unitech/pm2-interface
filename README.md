@@ -6,20 +6,20 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 
 ## RPC methods
 
-| Method                                    | Response Type       | Emit event   |  Description   |
-| ----------------------------------------- | ----------------- | :------------: | -------------- |
-| `ipm2.rpc.prepare(json, fn)`              | ?                   | ?            |    send a JSON configuration to **start app(s)**             |
-| `ipm2.rpc.getMonitorData({}, fn)`         | `JSON`              |  X                                 |    **receive** all related **information** about pm2 supervised process (cpu/ram/pid...)            |
-| `ipm2.rpc.startProcessId(integer, fn)`    | `JSON`              | `process:online + process.name`    |        **start** a process by id (pm_id) who his state is stopped        |
-| `ipm2.rpc.stopProcessId(integer, fn)`     | `JSON`              | `process:exit + process.name`      |       **stop** a process by id (pm_id)         |
-| `ipm2.rpc.stopAll({}, fn)`                | centered            |  `process:exit + process.name`     |      **stop** all process          |
-| `ipm2.rpc.reload(data, fn)`               | ?                   |   ?                                |     reload all apps (**only for networked apps**)           |
-| `ipm2.rpc.killMe(data, fn)`               | *Pm2 daemon Killed* | X                                  |    **kill** pm2 daemon            |
-| `ipm2.rpc.findByScript(string, fn)`       | `JSON`              |   X                                |         send you back the **information** about a **specific** process       |
-| `ipm2.rpc.restartProcessId(integer, fn)`  | `JSON`              | `process:exit + process.name` &  `process:online + process.name`       |        **restart** a process by id (pm_id)        |
-| `ipm2.rpc.restartProcessName(string, fn)` | `JSON`              | `process:exit + process.name` &  `process:online + process.name`      |           **restart all** processes who have the given name      |
-| `ipm2.rpc.deleteProcess(string, fn)`      | `JSON`              |   ? X                              |             **stop and delete** a process  from the pm2 database  |
-| `ipm2.rpc.deleteAll(data, fn)`            | ?                   |    ? X                             |         **stop and delete** all processes       |
+| Method                                    | Response Type       | Emit event                            |  Description   |
+| ----------------------------------------- | -----------------   | ------------                          | -------------- |
+| `ipm2.rpc.prepare(json, fn)`              | ?                   | ?                                     |    send a JSON configuration to **start app(s)**             |
+| `ipm2.rpc.getMonitorData({}, fn)`         | `JSON`              |  X                                    |    **receive** all related **information** about pm2 supervised process (cpu/ram/pid...)            |
+| `ipm2.rpc.startProcessId(integer, fn)`    | `JSON`              | process:online + process.name         |        **start** a process by id (pm_id) who his state is stopped        |
+| `ipm2.rpc.stopProcessId(integer, fn)`     | `JSON`              | process:exit + process.name           |       **stop** a process by id (pm_id)         |
+| `ipm2.rpc.stopAll({}, fn)`                | ?                   |  process:exit + process.name          |      **stop** all process          |
+| `ipm2.rpc.reload(data, fn)`               | ?                   |   ?                                   |     reload all apps (**only for networked apps**)           |
+| `ipm2.rpc.killMe(data, fn)`               | *Pm2 daemon Killed* | X                                     |    **kill** pm2 daemon            |
+| `ipm2.rpc.findByScript(string, fn)`       | `JSON`              |   X                                   |         send you back the **information** about a **specific** process       |
+| `ipm2.rpc.restartProcessId(integer, fn)`  | `JSON`              | process:exit + process.name &  process:online + process.name       |        **restart** a process by id (pm_id)        |
+| `ipm2.rpc.restartProcessName(string, fn)` | `JSON`              | process:exit + process.name &  process:online + process.name      |           **restart all** processes who have the given name      |
+| `ipm2.rpc.deleteProcess(string, fn)`      | `JSON`              |   ? X                                 |             **stop and delete** a process  from the pm2 database  |
+| `ipm2.rpc.deleteAll(data, fn)`            | ?                   |    ? X                                |         **stop and delete** all processes       |
 
 
 ## Notifications

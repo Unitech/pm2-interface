@@ -9,8 +9,6 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 ## RPC methods
 
 
-----------
-
 
 - [`ipm2.rpc.prepare(json, fn)`](#prepare)
 - [`ipm2.rpc.getMonitorData({}, fn)`](#getMonitorData)
@@ -39,7 +37,6 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 - [`ipm2.rpc.prepare(json, fn)`](#prepare)
 
 
-----------
 
 **<a name="prepare">ipm2.rpc.prepare</a>**
 

@@ -30,11 +30,6 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 - [`ipm2.rpc.getProcesses((), fn)`](#getProcesses)
 - [`ipm2.rpc.getFormatedProcesses((), fn)`](#getFormatedProcesses)
 - [`ipm2.rpc.checkProcess((), fn)`](#checkProcess)
-- [`ipm2.rpc.prepare(json, fn)`](#prepare)
-- [`ipm2.rpc.prepare(json, fn)`](#prepare)
-- [`ipm2.rpc.prepare(json, fn)`](#prepare)
-- [`ipm2.rpc.prepare(json, fn)`](#prepare)
-- [`ipm2.rpc.prepare(json, fn)`](#prepare)
 
 
 

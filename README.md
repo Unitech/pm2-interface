@@ -3,7 +3,7 @@
 pm2-interface permits you to interact with [PM2](https://github.com/Unitech/pm2) the process manager for NodeJS.
 
 You can **control all exposed methods** by the pm2 deamon [God](https://github.com/Unitech/pm2/blob/master/lib/God.js) and also **receive real time notifications** for example for a process who got an unexpectedException, who's starting/stopping.
-----------
+
 
 
 ## RPC methods

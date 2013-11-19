@@ -3,24 +3,275 @@
 pm2-interface permits you to interact with [PM2](https://github.com/Unitech/pm2) the process manager for NodeJS.
 
 You can **control all exposed methods** by the pm2 deamon [God](https://github.com/Unitech/pm2/blob/master/lib/God.js) and also **receive real time notifications** for example for a process who got an unexpectedException, who's starting/stopping.
+----------
+
 
 ## RPC methods
 
-| Method                                    | Response Type       | Emit event                            |  Description   |
-| ----------------------------------------- | -----------------   | ------------                          | -------------- |
-| `ipm2.rpc.prepare(json, fn)`              | ?                   | ?                                     |    send a JSON configuration to **start app(s)**             |
-| `ipm2.rpc.getMonitorData({}, fn)`         | `JSON`              |  X                                    |    **receive** all related **information** about pm2 supervised process (cpu/ram/pid...)            |
-| `ipm2.rpc.startProcessId(integer, fn)`    | `JSON`              | process:online + process.name         |        **start** a process by id (pm_id) who his state is stopped        |
-| `ipm2.rpc.stopProcessId(integer, fn)`     | `JSON`              | process:exit + process.name           |       **stop** a process by id (pm_id)         |
-| `ipm2.rpc.stopAll({}, fn)`                | ?                   |  process:exit + process.name          |      **stop** all process          |
-| `ipm2.rpc.reload(data, fn)`               | ?                   |   ?                                   |     reload all apps (**only for networked apps**)           |
-| `ipm2.rpc.killMe(data, fn)`               | *Pm2 daemon Killed* | X                                     |    **kill** pm2 daemon            |
-| `ipm2.rpc.findByScript(string, fn)`       | `JSON`              |   X                                   |         send you back the **information** about a **specific** process       |
-| `ipm2.rpc.restartProcessId(integer, fn)`  | `JSON`              | process:exit + process.name &  process:online + process.name       |        **restart** a process by id (pm_id)        |
-| `ipm2.rpc.restartProcessName(string, fn)` | `JSON`              | process:exit + process.name &  process:online + process.name      |           **restart all** processes who have the given name      |
-| `ipm2.rpc.deleteProcess(string, fn)`      | `JSON`              |   ? X                                 |             **stop and delete** a process  from the pm2 database  |
-| `ipm2.rpc.deleteAll(data, fn)`            | ?                   |    ? X                                |         **stop and delete** all processes       |
 
+----------
+
+
+- [`ipm2.rpc.prepare(json, fn)`](#prepare)
+- [`ipm2.rpc.getMonitorData({}, fn)`](#getMonitorData)
+- [`ipm2.rpc.startProcessId(integer, fn)`](#startProcessId)
+- [`ipm2.rpc.stopProcessId(integer, fn)`](#stopProcessId)
+- [`ipm2.rpc.stopProcessName(string, fn)`](#stopProcessName)
+- [`ipm2.rpc.restartProcessId(integer, fn)`](#restartProcessId)
+- [`ipm2.rpc.restartProcessName(string, fn)`](#restartProcessName)
+- [`ipm2.rpc.stopAll({}, fn)`](#stopAll)
+- [`ipm2.rpc.reload(data, fn)`](#reload)
+- [`ipm2.rpc.killMe(data, fn)`](#killMe)
+- [`ipm2.rpc.findByScript(string, fn)`](#findByScript)
+- [`ipm2.rpc.findProcessById(integer, fn)`](#findProcessById)
+- [`ipm2.rpc.findByPort(integer, fn)`](#findByPort)
+- [`ipm2.rpc.findByFullPath(string, fn)`](#findByFullPath)
+- [`ipm2.rpc.deleteProcessId(integer, fn)`](#deleteProcessId)
+- [`ipm2.rpc.deleteProcessName(string, fn)`](#deleteProcessName)
+- [`ipm2.rpc.deleteAll(data, fn)`](#deleteAll)
+- [`ipm2.rpc.getProcesses((), fn)`](#getProcesses)
+- [`ipm2.rpc.getFormatedProcesses((), fn)`](#getFormatedProcesses)
+- [`ipm2.rpc.checkProcess((), fn)`](#checkProcess)
+- [`ipm2.rpc.prepare(json, fn)`](#prepare)
+- [`ipm2.rpc.prepare(json, fn)`](#prepare)
+- [`ipm2.rpc.prepare(json, fn)`](#prepare)
+- [`ipm2.rpc.prepare(json, fn)`](#prepare)
+- [`ipm2.rpc.prepare(json, fn)`](#prepare)
+
+
+----------
+
+**<a name="prepare">ipm2.rpc.prepare</a>**
+
+- **Description:** send a JSON configuration to start app(s)
+- **Notification:** 
+- **Response:**
+
+```javascript
+ipm2.rpc.prepare
+```
+
+**<a name="stopAll">ipm2.rpc.stopAll</a>**
+
+- **Description:** stop all process
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.stopAll
+```
+
+**<a name="reload">ipm2.rpc.reload</a>**
+
+- **Description:** reload all apps (only for networked apps)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.reload
+```
+
+**<a name="getProcesses">ipm2.rpc.getProcesses</a>**
+
+- **Description:** Send some info about the pm2 procesess
+- **Notification:** 
+- **Response:** `JSON`
+
+
+```javascript
+ipm2.rpc.getProcesses
+```
+
+**<a name="getFormatedProcesses">ipm2.rpc.getFormatedProcesses</a>**
+
+- **Description:** Send some formated info about the pm2 procesess
+- **Notification:** 
+- **Response:** `JSON`
+
+
+```javascript
+ipm2.rpc.getFormatedProcesses
+```
+
+
+**<a name="getMonitorData">ipm2.rpc.getMonitorData</a>**
+
+- **Description:** receive all related informations about supervised process (cpu/ram/pid...)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.getMonitorData
+```
+
+
+
+**<a name="findProcessById">ipm2.rpc.findProcessById</a>**
+
+- **Description:** send you back the informations about a specific process (by pm2 id)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.findProcessById
+```
+
+**<a name="findByScript">ipm2.rpc.findByScript</a>**
+
+- **Description:** send you back the informations about a specific process (by script name)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.findByScript
+```
+
+**<a name="findByPort">ipm2.rpc.findByPort</a>**
+
+- **Description:** send you back the informations about a specific process (by port number)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.findByPort
+```
+
+**<a name="findByFullPath">ipm2.rpc.findByFullPath</a>**
+
+- **Description:** send you back the informations about a specific process  (by full path)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.findByFullPath
+```
+
+**<a name="checkProcess">ipm2.rpc.checkProcess</a>**
+
+- **Description:** Check if a process is alive in system processes (by system process id?)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.checkProcess
+```
+
+**<a name="startProcessId">ipm2.rpc.startProcessId</a>**
+
+- **Description:** start a process by id (pm_id) who his state is stopped
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.startProcessId
+```
+
+**<a name="stopProcessId">ipm2.rpc.stopProcessId</a>**
+
+- **Description:** stop a process by id (pm_id)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.stopProcessId
+```
+
+**<a name="deleteProcessId">ipm2.rpc.deleteProcessId</a>**
+
+- **Description:** stop and delete a process from the pm2 database by id (pm_id)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.deleteProcessId
+```
+
+**<a name="restartProcessId">ipm2.rpc.restartProcessId</a>**
+
+- **Description:** restart a process by id (pm_id)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.restartProcessId
+```
+
+**<a name="restartProcessName">ipm2.rpc.restartProcessName</a>**
+
+- **Description:** restart all processes who have the given name (ex. more than 1 instance)
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.restartProcessName
+```
+
+**<a name="stopProcessName">ipm2.rpc.stopProcessName</a>**
+
+> - **Description:** stop all processes who have the given name (ex. more than 1 instance)
+> - **Notification:** 
+> - **Response:**
+
+
+```javascript
+ipm2.rpc.stopProcessName
+```
+
+**<a name="deleteProcessId">ipm2.rpc.deleteProcessId</a>**
+
+> - **Description:** stop and delete all processes who have the given name
+> - **Notification:** 
+> - **Response:**
+
+
+```javascript
+ipm2.rpc.deleteProcessId
+```
+**<a name="deleteProcessName">ipm2.rpc.deleteProcessName</a>**
+
+> - **Description:** stop and delete all processes who have the given name
+> - **Notification:** 
+> - **Response:**
+
+
+```javascript
+ipm2.rpc.deleteProcessName
+```
+
+**<a name="deleteAll">ipm2.rpc.deleteAll</a>**
+
+- **Description:** stop and delete all processes 
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.deleteAll
+```
+
+**<a name="killMe">ipm2.rpc.killMe</a>**
+
+- **Description:** kill pm2 daemon
+- **Notification:** 
+- **Response:**
+
+
+```javascript
+ipm2.rpc.killMe
+```
 
 ## Notifications
 

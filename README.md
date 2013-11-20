@@ -52,6 +52,19 @@ ipm2.on('ready', function() {
 });
 ```
 
+## Disconnect
+
+Since pm2-interface interacts with PM2 via sockets, any script which uses pm2-interface will remain alive even when the node.js event loop is empty. `process.exit()` can be called to forcefully exit, or, if your script has finished making calls to PM2, you may call `ipm2.disconnect()` to disconnect the socket connections and allow node to exit automatically.
+
+```javascript
+ipm2.on('ready', function() {
+
+  // ...
+    
+  ipm2.disconnect();
+});
+```
+
 ## Ideas
 
 - Catching exceptions and fowarding them by mail

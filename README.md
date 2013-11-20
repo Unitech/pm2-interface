@@ -65,6 +65,8 @@ ipm2.on('ready', function() {
 });
 ```
 
+> Calling `disconnect()` means "I am entirely done interacting with PM2." You will no longer be able to receive messages on `ipm2.bus` or send requests on `ipm2.rpc`. To reconnect you must completely start over with a new ipm2 object.
+
 ## Ideas
 
 - Catching exceptions and fowarding them by mail

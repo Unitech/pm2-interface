@@ -6,8 +6,9 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 
 ## RPC methods
 
-- `ipm2.rpc.prepare(json, fn)` send a JSON configuration to start app(s)
+- `ipm2.rpc.prepareJson(json_app, cwd, fn)` send a JSON configuration to start app(s) in the cwd folder
 - `ipm2.rpc.getMonitorData({}, fn)` receive all related informations about supervised process (cpu/ram/pid...)
+- `ipm2.rpc.getMonitorData({}, fn)` receive all data about process managed by pm2 and computer resources usage
 - `ipm2.rpc.startProcessId(integer, fn)` start a process by id (pm_id) who his state is stopped
 - `ipm2.rpc.stopProcessId(integer, fn)` stop a process by id (pm_id)
 - `ipm2.rpc.stopAll({}, fn)` stop all process
@@ -17,7 +18,7 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 - `ipm2.rpc.restartProcessId(integer, fn)` restart a process by id (pm_id)
 - `ipm2.rpc.restartProcessName(string, fn)` restart all processes who have the given name
 - `ipm2.rpc.deleteProcess(string, fn)` stop and delete all processes from the pm2 database
-- `ipm2.rpc.deleteAll(data, fn)` stop and delete all processes 
+- `ipm2.rpc.deleteAll(data, fn)` stop and delete all processes
 
 ## Notifications
 
@@ -35,7 +36,7 @@ var ipm2 = require('pm2-interface')();
 ipm2.on('ready', function() {
   console.log('Connected to pm2');
 
-  ipm2.bus.on('*', function(event, data){    
+  ipm2.bus.on('*', function(event, data){
     console.log(event, data.pm2_env.name);
   });
 
@@ -45,7 +46,7 @@ ipm2.on('ready', function() {
     });
   }, 2000);
 
-  
+
   ipm2.rpc.getMonitorData({}, function(err, dt) {
     console.log(dt);
   });
@@ -60,7 +61,7 @@ Since pm2-interface interacts with PM2 via sockets, any script which uses pm2-in
 ipm2.on('ready', function() {
 
   // ...
-    
+
   ipm2.disconnect();
 });
 ```

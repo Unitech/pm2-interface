@@ -26,7 +26,9 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 - `process:exit` when a process is exited
 - `process:exception` When a process has received an uncaughtException
 
-**Advanced feature** : You can use `process.emit({ type : 'my:message', data : {}})` in your Node apps. When you emit a message, they will be redirected to pm2 ans send back to the pm2-interface bus.
+**Advanced feature** : You can use `process.send({ type : 'my:message', data : {}})` in your Node apps. When you emit a message, they will be redirected to pm2 and sent back to the pm2-interface bus.
+
+> It should be noted that `process.send` will be undefined if there is no parent process. Therefore a check of `if (process.send)` may be advisable.
 
 ## Example
 

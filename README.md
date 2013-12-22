@@ -8,7 +8,7 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 
 - `ipm2.rpc.prepareJson(json_app, cwd, fn)` send a JSON configuration to start app(s) in the cwd folder
 - `ipm2.rpc.getMonitorData({}, fn)` receive all related informations about supervised process (cpu/ram/pid...)
-- `ipm2.rpc.getMonitorData({}, fn)` receive all data about process managed by pm2 and computer resources usage
+- `ipm2.rpc.getSystemData({}, fn)` receive all data about process managed by pm2 and computer resources usage
 - `ipm2.rpc.startProcessId(integer, fn)` start a process by id (pm_id) who his state is stopped
 - `ipm2.rpc.stopProcessId(integer, fn)` stop a process by id (pm_id)
 - `ipm2.rpc.stopAll({}, fn)` stop all process
@@ -19,6 +19,7 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 - `ipm2.rpc.restartProcessName(string, fn)` restart all processes who have the given name
 - `ipm2.rpc.deleteProcess(string, fn)` stop and delete all processes from the pm2 database
 - `ipm2.rpc.deleteAll(data, fn)` stop and delete all processes
+- `ipm2.rpc.msgProcess(opts, fn)` send msg `opts.msg` to process at `opts.id` or all processes with `opts.name`
 
 ## Notifications
 
@@ -26,7 +27,7 @@ You can **control all exposed methods** by the pm2 deamon [God](https://github.c
 - `process:exit` when a process is exited
 - `process:exception` When a process has received an uncaughtException
 
-**Advanced feature** : You can use `process.send({ type : 'my:message', data : {}})` in your Node apps. When you emit a message, they will be redirected to pm2 and sent back to the pm2-interface bus.
+**Advanced feature** : You can use `process.send({ type : 'my:message', data : {}})` in your Node apps. When you emit a message, they will be redirected to pm2 and sent back to the pm2-interface bus. This can be coupled with `rpc.msgProcess(opts, fn)` to allow 2-way communication between managed processes and pm2-interface - see second Example below.
 
 > It should be noted that `process.send` will be undefined if there is no parent process. Therefore a check of `if (process.send)` may be advisable.
 
@@ -53,6 +54,74 @@ ipm2.on('ready', function() {
     console.log(dt);
   });
 });
+```
+
+## Example 2-way
+
+in your process script
+```javascript
+if (send in process) {
+  process.on("message", function (msg) {
+    if ( "type" in msg && msg.type === "god:heap" ) {
+        var heap = process.memoryUsage().heapUsed
+      process.send({type:"process:heap", heap:heap})
+    }
+  })
+}
+
+var myMemoryLeak = []
+
+setInterval( function () {
+  var object = {}
+  for (var i = 0; i < 10000; i++) {
+    object["key"+i] = Math.random().toString(36).substring(7)
+  }
+
+  myMemoryLeak.push(object)
+
+}, Math.round(Math.random()*2000))
+```
+in monitoring script
+```javascript
+var ipm2 = require('pm2-interface')()
+
+ipm2.on('ready', function() {
+
+    console.log('Connected to pm2')
+
+    ipm2.bus.on('process:heap', function(data){
+        console.log("process heap:", data)
+    })
+
+
+    setInterval( function () {
+        var msg = {type:"god:heap"}   // god: is arbitrary and used to distinguish incoming & outgoing msgs
+        ipm2.rpc.msgProcess({name:"worker", msg:msg}, function (err, res) {
+            if (err) console.log(err)
+            else console.log(res)
+        })
+    }, 5000)
+})
+```
+Start pm2 and monitoring script + output:
+```shell
+pm2 start worker.js -i 3 --name worker
+node monitor.js
+
+sent 3 messages   # coming from the console.log(res)
+process heap: { pm_id: 0, msg: { type: 'process:heap', heap: 43416064 } }
+process heap: { pm_id: 1, msg: { type: 'process:heap', heap: 18373704 } }
+process heap: { pm_id: 2, msg: { type: 'process:heap', heap: 80734256 } }
+sent 3 messages
+process heap: { pm_id: 0, msg: { type: 'process:heap', heap: 61994096 } }
+process heap: { pm_id: 1, msg: { type: 'process:heap', heap: 22437400 } }
+process heap: { pm_id: 2, msg: { type: 'process:heap', heap: 116622432 } }
+sent 3 messages
+process heap: { pm_id: 0, msg: { type: 'process:heap', heap: 79641168 } }
+process heap: { pm_id: 1, msg: { type: 'process:heap', heap: 32260112 } }
+process heap: { pm_id: 2, msg: { type: 'process:heap', heap: 156047904 } }
+
+pm2 delete all
 ```
 
 ## Disconnect

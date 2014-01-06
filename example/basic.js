@@ -11,6 +11,15 @@ ipm2a.on('ready', function() {
     console.log(event);
   });
 
+  // ipm2a.bus.on('log:err', function(event, data){
+  //   console.log(event, data);
+  // });
+
+  // ipm2a.bus.on('log:out', function(event, data){
+  //   console.log(event, data);
+  // });
+
+
   ipm2a.on('rpc_sock:reconnecting', function() {
     console.log('rpc_sock:reconnecting');
   });

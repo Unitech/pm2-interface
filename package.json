@@ -1,6 +1,6 @@
 {
   "name": "pm2-interface",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Interact with pm2 via RPC and receive real time notifications",
   "author": {
     "name": "Strzelewicz Alexandre",

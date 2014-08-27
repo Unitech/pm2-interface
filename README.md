@@ -39,8 +39,8 @@ var ipm2 = require('pm2-interface')();
 ipm2.on('ready', function() {
   console.log('Connected to pm2');
 
-  ipm2.bus.on('*', function(event, data){
-    console.log(event, data.pm2_env.name);
+  ipm2.bus.on('message', function(data){
+    console.log(data, data.pm2_env.name);
   });
 
   setTimeout(function() {

@@ -1,6 +1,6 @@
 {
   "name": "pm2-interface",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Interact with pm2 via RPC and receive real time notifications",
   "author": {
     "name": "Strzelewicz Alexandre",
@@ -12,8 +12,8 @@
   },
   "main": "index.js",
   "dependencies" : {
-    "pm2-axon"       : "2.0.2",
-    "pm2-axon-rpc"   : "0.3.3",
+    "pm2-axon"       : "2.0.4",
+    "pm2-axon-rpc"   : "0.3.4",
     "debug"          : "*"
   },
   "keywords": [

@@ -1,3 +1,7 @@
+# You shouldn't use this module !
+
+Use https://github.com/Unitech/PM2/blob/master/ADVANCED_README.md#programmatic-example instead
+
 # pm2-interface (for pm2 version >= 0.6.0)
 
 pm2-interface permits you to interact with [PM2](https://github.com/Unitech/pm2) the process manager for NodeJS.

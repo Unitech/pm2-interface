@@ -4,8 +4,7 @@
 //
 
 var p    = require('path');
-var HOME = process.env.PM2_HOME || process.env.HOME;
-var DEFAULT_FILE_PATH = p.resolve(HOME, '.pm2');
+var DEFAULT_FILE_PATH = process.env.PM2_HOME || p.resolve(process.env.HOME, '.pm2');
 
 module.exports = {
   DAEMON_BIND_HOST   : 'localhost',

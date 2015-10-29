@@ -1,5 +1,4 @@
 This module is deprecated.
 
-Use: https://github.com/Unitech/PM2/blob/master/doc/PROGRAMMATIC.md
+Use instead: http://pm2.keymetrics.io/docs/usage/pm2-api/
 
-= Programmatically call PM2 CLI commands + Get event in realtime with the BUS system
